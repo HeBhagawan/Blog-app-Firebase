@@ -1,19 +1,35 @@
 import "../scss/Details.scss";
-import { getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import { doc } from "firebase/firestore";
-
-function Detail({ setActive }) {
+import Tags from "../components/Tags";
+import MostPopular from "../components/MostPopular";
+function Detail({ setActive, user }) {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
+  const [tags, setTags] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   useEffect(() => {
     id && getBlogDetail();
   }, [id]);
   const getBlogDetail = async () => {
     const docRef = doc(db, "blogs", id);
+    const blogRef = collection(db, "blogs");
     const blogDetail = await getDoc(docRef);
+    const blogs = await getDocs(blogRef);
+    const tags = [];
+    blogs.docs.map((doc) => tags.push(...doc.get("tags")));
+    let uniqueTags = [...new Set(tags)];
+    setTags(uniqueTags);
     setBlog(blogDetail.data());
     setActive(null);
   };
@@ -40,8 +56,7 @@ function Detail({ setActive }) {
               <p className="text-start">{blog?.description}</p>
             </div>
             <div className="col-md-3">
-              <h2>Tags</h2>
-              <h2>Most Popular</h2>
+              <Tags tags={tags} />
             </div>
           </div>
         </div>
