@@ -206,6 +206,13 @@ function AddEditingBlog({ user, setActive }) {
                   placeholder="Tags"
                   onChange={handleTags}
                 />
+                <button
+                    type="button"
+                    className="btn btn-primary ml-2"
+                    onClick={() => handleTags([...tags, ""])}
+                  >
+                    Add
+                  </button>
               </div>
               <div className="col-12 py-3">
                 <p className="trending">Is it trending blog?</p>
