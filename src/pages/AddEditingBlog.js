@@ -162,14 +162,13 @@ function AddEditingBlog({ user, setActive }) {
             description,
             createdAt: serverTimestamp(),
             author: user.displayName,
-            
+
             userId: user.uid,
           });
           toast.success("Blog Updated successfully!");
           setForm(initialState);
           setFile(null);
           setProgress(null);
-        
         } catch (error) {
           console.error("Error adding document: ", error);
           toast.error("Error Updating blog. Please try again later.");
@@ -206,13 +205,10 @@ function AddEditingBlog({ user, setActive }) {
                   placeholder="Tags"
                   onChange={handleTags}
                 />
-                <button
-                    type="button"
-                    className="btn btn-primary ml-2"
-                    onClick={() => handleTags([...tags, ""])}
-                  >
-                    Add
-                  </button>
+                
+                <button>
+                  Add
+                </button>
               </div>
               <div className="col-12 py-3">
                 <p className="trending">Is it trending blog?</p>
