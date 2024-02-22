@@ -205,10 +205,7 @@ function AddEditingBlog({ user, setActive }) {
                   placeholder="Tags"
                   onChange={handleTags}
                 />
-                
-                <button>
-                  Add
-                </button>
+                Hello
               </div>
               <div className="col-12 py-3">
                 <p className="trending">Is it trending blog?</p>
